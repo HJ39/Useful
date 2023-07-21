@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 
-// MARK: 사용자 github 프로필 로딩
 extension UIImageView {
     func load(img: UIImageView, url: URL, btn: UIButton){
         DispatchQueue.global().async {
