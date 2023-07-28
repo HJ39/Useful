@@ -7,7 +7,14 @@
 
 import UIKit
 
+/// MARK: 팝업 창이 뜰 때 뒷 배경이 흐릿하게 변하게 되는 클래스
 class DimmedViewController: UIViewController{
+    
+    /// Animate time
+    private let durationTime: TimeInterval
+    
+    /// view's alpha value
+    private let alpha: CGFloat
     
     /// MARK: Dimmed View
     private lazy var dimmedView: UIView = {
@@ -18,8 +25,11 @@ class DimmedViewController: UIViewController{
         return view
     }()
     
-    init() {
+    init(durationTime: TimeInterval, alpha: CGFloat) {
+        self.durationTime = durationTime
+        self.alpha = alpha
         super.init(nibName: nil, bundle: nil)
+        
         modalTransitionStyle = .coverVertical
         modalPresentationStyle = .overFullScreen
     }
@@ -62,14 +72,14 @@ class DimmedViewController: UIViewController{
     
     /// MARK: move appear animation
     private func appearAnimation(){
-        UIView.animate(withDuration: 0.3) {
-            self.dimmedView.alpha = 0.25
+        UIView.animate(withDuration: durationTime) {
+            self.dimmedView.alpha = self.alpha
         }
     }
     
     /// MARK: move disappear animation
     private func disappearAnimation(){
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: durationTime) {
             self.dimmedView.alpha = 0
         } completion: { _ in
             self.dimmedView.removeFromSuperview()
@@ -77,4 +87,3 @@ class DimmedViewController: UIViewController{
     }
     
 }
-
